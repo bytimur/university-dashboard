@@ -1,0 +1,17 @@
+{
+  "home": "Assosy",
+  "orders": "Buyurtmalar",
+  "branches": "Filiallar",
+  "no_options": "Variantlar yo'q",
+  "time": "Vaqt",
+  "required_field": "Maydon talab qilinadi",
+
+  "money_online": "Onlayn",
+  "money_offline": "Naqd",
+  "money_returned": "Qaytish",
+
+  "branch_orders": "Buyurtmalar",
+  "branch_products": "Mahsulotlar",
+  "branch_stock": "Aksiya",
+  "branch_staff": "Xodimlar"
+}

@@ -1,0 +1,17 @@
+{
+  "home": "Главная",
+  "orders": "Заказы",
+  "branches": "Филиалы",
+  "no_options": "Нет опицй",
+  "time": "Время",
+  "required_field": "Поле обязательное",
+
+  "money_online": "Онлайн",
+  "money_offline": "Наличка",
+  "money_returned": "Возврат",
+
+  "branch_orders": "Заказы",
+  "branch_products": "Продукты",
+  "branch_stock": "Склад",
+  "branch_staff": "Сотрудники"
+}
