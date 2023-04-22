@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
+  height: fit-content;
   display: grid;
 
   .faculty-list-header {
@@ -22,7 +23,7 @@ const Container = styled.div`
 
     .student-quantity {
       display: grid;
-      justify-content: end;
+      text-align: end;
     }
   }
 

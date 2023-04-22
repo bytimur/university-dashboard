@@ -5,6 +5,8 @@ const Container = styled.div`
   height: fit-content;
   display: grid;
   justify-items: center;
+  align-items: center;
+  text-align: center;
   gap: 16px;
 `;
 

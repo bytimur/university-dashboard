@@ -38,6 +38,7 @@ const Header: FC<HeaderProps> = (props) => {
           </TextProvider>
         </div>
       </div>
+
       {searchField ? <SearchField /> : null}
       {buttons ? (
         <div className="button-wrap">

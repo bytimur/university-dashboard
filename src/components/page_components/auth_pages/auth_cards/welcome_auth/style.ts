@@ -19,6 +19,10 @@ const Container = styled.form`
     display: grid;
     align-items: center;
     justify-items: center;
+
+    .titler-descript {
+      text-align: center;
+    }
   }
 
   .input-wrap {

@@ -1,8 +1,14 @@
 import Header from "@/src/components/global/header";
-import IllustrationCard from "@/src/components/global/illustrations_card";
+import dynamic from "next/dynamic";
+import { useTranslation } from "react-i18next";
 import Container from "./style";
+const IllustrationCard = dynamic(
+  () => import("../../../global/illustrations_card"),
+  { ssr: false }
+);
 
 const AddmissionExamListPage = () => {
+  const { t } = useTranslation();
   return (
     <Container>
       <Header
@@ -28,12 +34,12 @@ const AddmissionExamListPage = () => {
       />
       <div className="illustration-wrap">
         <IllustrationCard
-          icon="StudentEmptyIcon"
-          title="В системе еще нет экзаменов"
-          description="Вам необходимо подать заявку для получение ответа приемной комисси и действия по договору"
+          icon="AdmissionExamIllustrationIcon"
+          title={t("empty_addmission_exam_title")}
+          description={t("empty_addmission_exam_description")}
           button={{
             title: "Подать заявку",
-            icon: "DocumentDownloadIcon",
+            icon: "AddSquareIcon",
             onClick: () => "click",
           }}
         />

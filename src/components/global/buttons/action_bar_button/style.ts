@@ -8,8 +8,8 @@ const Container = styled.div`
 
   .action-bar-wrap {
     position: absolute;
-    top: 24px;
-    right: 18px;
+    top: 36px;
+    right: 0px;
     z-index: 1;
   }
 `;

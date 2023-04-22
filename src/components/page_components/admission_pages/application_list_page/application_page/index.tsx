@@ -26,6 +26,7 @@ const ApplicationPage = () => {
           },
         }}
       />
+
       <div className="tabbar-wrap">
         {applicationPersonalData.map((item) => (
           <TabBar

@@ -11,6 +11,12 @@ const Container = styled.div`
     display: grid;
     gap: 16px;
   }
+
+  .illustration-wrap {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export default Container;

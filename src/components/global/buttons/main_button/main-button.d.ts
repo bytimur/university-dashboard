@@ -4,7 +4,7 @@ import { AllIconsType } from "../../../../resources/icon_collection/index";
 export type MainButtonProps = {
   title: string;
   onClick: () => void;
-  type?: "submit";
+  type?: "submit" | "button";
   leftIcon?: { icon: AllIconsType; color: ColorPaletTypes };
   rightIcon?: {
     icon: AllIconsType;

@@ -9,11 +9,15 @@ import TableListDescItem from "@/src/components/global/table/table_list_desc_ite
 import { TableListDescItemProps } from "@/src/components/global/table/table_list_desc_item/table-list-desc-item";
 import TabBar from "@/src/components/global/tab_bar";
 import { tabBarApplicantpageData, tabBarData } from "@/src/resources/demo-data";
+import dynamic from "next/dynamic";
 import Router, { useRouter } from "next/router";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Container from "./style";
-// import { useRouter } from "next/router";
-
+const IllustrationCard = dynamic(
+  () => import("../../../global/illustrations_card"),
+  { ssr: false }
+);
 type DataType = {
   id: number;
   name: TableListDescItemProps;
@@ -27,6 +31,8 @@ type DataType = {
 
 const ApplicationListPage = () => {
   const [selected, setSelected] = useState<string>("all");
+  const { t } = useTranslation();
+  const [appointment, setAppointment] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -108,19 +114,19 @@ const ApplicationListPage = () => {
             id: 0,
             title: "Принять",
             onClick: () => "click",
-            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+            icon: { iconName: "TickSquareIcon", color: "solid_green" },
           },
           {
             id: 1,
             title: "Повторение",
             onClick: () => "click",
-            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+            icon: { iconName: "MinusIcon", color: "solid_blue" },
           },
           {
             id: 2,
             title: "Отменить",
             onClick: () => "click",
-            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+            icon: { iconName: "CloseSquareIcon", color: "solid_red" },
           },
         ],
       },
@@ -282,8 +288,10 @@ const ApplicationListPage = () => {
         ],
       },
     },
+  ];
+  const considerationData: DataType[] = [
     {
-      id: 4,
+      id: 0,
       name: {
         title: "Bahriddinov Fazliddin Shamsiddinovich",
       },
@@ -301,7 +309,216 @@ const ApplicationListPage = () => {
       },
       status: {
         title: "Новое",
-        type: "approved",
+        type: "new",
+      },
+
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+      },
+    },
+    {
+      id: 1,
+      name: {
+        title: "Bahriddinov Fazliddin Shamsiddinovich",
+      },
+      created: {
+        date: "2022-11-12",
+      },
+      formStage: {
+        title: "Бакалавриат",
+        subTitle: "Очное",
+      },
+      language: "Русский",
+      facultyDirection: {
+        title: "Компьютерная инженерия",
+        subTitle: "Мультимедийные технологии",
+      },
+      status: {
+        title: "Новое",
+        type: "new",
+      },
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+      },
+    },
+    {
+      id: 2,
+      name: {
+        title: "Bahriddinov Fazliddin Shamsiddinovich",
+      },
+      created: {
+        date: "2022-11-12",
+      },
+      formStage: {
+        title: "Бакалавриат",
+        subTitle: "Очное",
+      },
+      language: "Русский",
+      facultyDirection: {
+        title: "Компьютерная инженерия",
+        subTitle: "Мультимедийные технологии",
+      },
+      status: {
+        title: "Новое",
+        type: "new",
+      },
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+      },
+    },
+    {
+      id: 3,
+      name: {
+        title: "Bahriddinov Fazliddin Shamsiddinovich",
+      },
+      created: {
+        date: "2022-11-12",
+      },
+      formStage: {
+        title: "Бакалавриат",
+        subTitle: "Очное",
+      },
+      language: "Русский",
+      facultyDirection: {
+        title: "Компьютерная инженерия",
+        subTitle: "Мультимедийные технологии",
+      },
+      status: {
+        title: "Новое",
+        type: "new",
+      },
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+      },
+    },
+    {
+      id: 4,
+      name: {
+        title: "Bahriddinov Fazliddin Shamsiddinovich",
+      },
+      created: {
+        date: "2022-11-12",
+      },
+      formStage: {
+        title: "Бакалавриат",
+        subTitle: "new",
+      },
+      language: "Русский",
+      facultyDirection: {
+        title: "Компьютерная инженерия",
+        subTitle: "Мультимедийные технологии",
+      },
+      status: {
+        title: "Новое",
+        type: "new",
       },
       actionButton: {
         actionGroupOne: [
@@ -335,118 +552,6 @@ const ApplicationListPage = () => {
       },
     },
   ];
-  const considerationData: DataType[] = [
-    {
-      id: 0,
-      name: {
-        title: "Bahriddinov Fazliddin Shamsiddinovich",
-      },
-      created: {
-        date: "2022-11-12",
-      },
-      formStage: {
-        title: "Бакалавриат",
-        subTitle: "Очное",
-      },
-      language: "Русский",
-      facultyDirection: {
-        title: "Компьютерная инженерия",
-        subTitle: "Мультимедийные технологии",
-      },
-      status: {
-        title: "Новое",
-        type: "new",
-      },
-    },
-    {
-      id: 1,
-      name: {
-        title: "Bahriddinov Fazliddin Shamsiddinovich",
-      },
-      created: {
-        date: "2022-11-12",
-      },
-      formStage: {
-        title: "Бакалавриат",
-        subTitle: "Очное",
-      },
-      language: "Русский",
-      facultyDirection: {
-        title: "Компьютерная инженерия",
-        subTitle: "Мультимедийные технологии",
-      },
-      status: {
-        title: "Новое",
-        type: "new",
-      },
-    },
-    {
-      id: 2,
-      name: {
-        title: "Bahriddinov Fazliddin Shamsiddinovich",
-      },
-      created: {
-        date: "2022-11-12",
-      },
-      formStage: {
-        title: "Бакалавриат",
-        subTitle: "Очное",
-      },
-      language: "Русский",
-      facultyDirection: {
-        title: "Компьютерная инженерия",
-        subTitle: "Мультимедийные технологии",
-      },
-      status: {
-        title: "Новое",
-        type: "new",
-      },
-    },
-    {
-      id: 3,
-      name: {
-        title: "Bahriddinov Fazliddin Shamsiddinovich",
-      },
-      created: {
-        date: "2022-11-12",
-      },
-      formStage: {
-        title: "Бакалавриат",
-        subTitle: "Очное",
-      },
-      language: "Русский",
-      facultyDirection: {
-        title: "Компьютерная инженерия",
-        subTitle: "Мультимедийные технологии",
-      },
-      status: {
-        title: "Новое",
-        type: "new",
-      },
-    },
-    {
-      id: 4,
-      name: {
-        title: "Bahriddinov Fazliddin Shamsiddinovich",
-      },
-      created: {
-        date: "2022-11-12",
-      },
-      formStage: {
-        title: "Бакалавриат",
-        subTitle: "new",
-      },
-      language: "Русский",
-      facultyDirection: {
-        title: "Компьютерная инженерия",
-        subTitle: "Мультимедийные технологии",
-      },
-      status: {
-        title: "Новое",
-        type: "new",
-      },
-    },
-  ];
   const rejectedData: DataType[] = [
     {
       id: 0,
@@ -469,6 +574,37 @@ const ApplicationListPage = () => {
         title: "Новое",
         type: "rejected",
       },
+
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+      },
     },
     {
       id: 1,
@@ -490,6 +626,37 @@ const ApplicationListPage = () => {
       status: {
         title: "Новое",
         type: "rejected",
+      },
+
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
       },
     },
     {
@@ -513,6 +680,37 @@ const ApplicationListPage = () => {
         title: "Новое",
         type: "rejected",
       },
+
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+      },
     },
     {
       id: 3,
@@ -535,6 +733,37 @@ const ApplicationListPage = () => {
         title: "Новое",
         type: "rejected",
       },
+
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+      },
     },
     {
       id: 4,
@@ -556,6 +785,36 @@ const ApplicationListPage = () => {
       status: {
         title: "Новое",
         type: "rejected",
+      },
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
       },
     },
   ];
@@ -581,6 +840,36 @@ const ApplicationListPage = () => {
         title: "Одобрено",
         type: "approved",
       },
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+      },
     },
     {
       id: 1,
@@ -602,6 +891,36 @@ const ApplicationListPage = () => {
       status: {
         title: "Одобрено",
         type: "approved",
+      },
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
       },
     },
     {
@@ -625,6 +944,36 @@ const ApplicationListPage = () => {
         title: "Одобрено",
         type: "approved",
       },
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+      },
     },
     {
       id: 3,
@@ -647,6 +996,36 @@ const ApplicationListPage = () => {
         title: "Одобрено",
         type: "approved",
       },
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+      },
     },
     {
       id: 4,
@@ -668,6 +1047,36 @@ const ApplicationListPage = () => {
       status: {
         title: "Одобрено",
         type: "approved",
+      },
+      actionButton: {
+        actionGroupOne: [
+          {
+            id: 0,
+            title: "Открыть",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
+        actionGroupTwo: [
+          {
+            id: 0,
+            title: "Принять",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 1,
+            title: "Повторение",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+          {
+            id: 2,
+            title: "Отменить",
+            onClick: () => "click",
+            icon: { iconName: "ExportBoldIcon", color: "second_text" },
+          },
+        ],
       },
     },
   ];
@@ -777,9 +1186,19 @@ const ApplicationListPage = () => {
           />
         ))}
       </div>
-      <div className="table-wrap">
-        <Table headings={headings} row={row} data={demoData} />
-      </div>
+      {appointment ? (
+        <div className="table-wrap">
+          <Table headings={headings} row={row} data={demoData} />
+        </div>
+      ) : (
+        <div className="illustration-car-wrap">
+          <IllustrationCard
+            icon="AdmissionIllustrationIcon"
+            title={t("empty_addmission_appointment_title")}
+            description={t("empty_addmission_appointment_description")}
+          />
+        </div>
+      )}
     </Container>
   );
 };

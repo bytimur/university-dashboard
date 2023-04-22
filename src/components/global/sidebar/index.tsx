@@ -15,7 +15,7 @@ export type SideBarButtonDataType = {
 export const sidebarButtonData: SideBarButtonDataType[] = [
   {
     id: 0,
-    icon: "DocumentUploadIcon",
+    icon: "DocumentUploadBoldIcon",
     title: "Подача заявления",
     route: "/student",
   },

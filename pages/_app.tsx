@@ -5,6 +5,7 @@ import NiceModal from "@ebay/nice-modal-react";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import store from "../src/redux/store";
+import { useGetAllClassifiers } from "@/src/utils/getAllClassifiers";
 
 function App(props: AppProps) {
   return (

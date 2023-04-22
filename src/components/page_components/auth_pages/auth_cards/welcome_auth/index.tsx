@@ -5,16 +5,33 @@ import { SCHEMA_INPUT_TEXT } from "@/src/resources/yup";
 import { useForm } from "react-hook-form";
 import { authAPI } from "@/src/redux/services/auth_service";
 import { getToken, saveToken } from "@/src/utils/tokenFunctions";
-import Link from "next/link";
-import MainButton from "../buttons/main_button";
+
 import Container from "./style";
-import Input from "../../../../input";
-import ChangerButton from "../changer_button";
-import TextProvider from "../providers/text_provider";
+import Input from "../../../../../../input";
+import ChangerButton from "../../../../global/changer_button";
 import { changerButtonData } from "@/src/resources/demo-data";
 import usePasswordToggle from "@/src/hooks/usePasswordToggle";
 import { t } from "i18next";
-import MainInput from "../main_input";
+import MainInput from "../../../../global/main_input";
+import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+
+const MainButton = dynamic(
+  () => import("../../../../global/buttons/main_button"),
+  {
+    ssr: false,
+  }
+);
+const TextProvider = dynamic(
+  () => import("../../../../global/providers/text_provider"),
+  {
+    ssr: false,
+  }
+);
+const Link = dynamic(() => import("next/link"), {
+  ssr: false,
+});
 
 const yupValidation = yup.object({
   phoneNumber: SCHEMA_INPUT_TEXT,
@@ -23,7 +40,9 @@ const yupValidation = yup.object({
 
 type YupValidationType = yup.InferType<typeof yupValidation>;
 
-const SignIn = () => {
+const WelcomeAuth = () => {
+  const { t } = useTranslation();
+  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
   const [signin, { data, isSuccess, isError, error }] =
     authAPI.useSigninMutation();
@@ -47,9 +66,10 @@ const SignIn = () => {
     signin({ login_as, username: phoneNumber, password })
       .unwrap()
       .then((res) => {
-        console.log(res);
+        if (!res.access) return;
         const a = saveToken(res);
-        console.log(a);
+        // TODO: change route base on role
+        router.replace("/student");
       })
       .catch((error) => console.warn(error));
   };
@@ -64,9 +84,10 @@ const SignIn = () => {
             },
           }}
         >
-          Добро пожаловать
+          {t("auth_welcome_title")}
         </TextProvider>
         <TextProvider
+          className="titler-descript"
           options={{
             textType: {
               regular: "regular12|14",
@@ -74,7 +95,7 @@ const SignIn = () => {
             color: "second_text",
           }}
         >
-          Предоставьте свои данные для входа в соответствии с запросом
+          {t("auth_welcome_description")}
         </TextProvider>
       </div>
       <div className="tabbar-changer-wrap">
@@ -114,8 +135,12 @@ const SignIn = () => {
             setFocus: () => setFocus("password"),
           }}
         />
-        <Link href="/auth/change_password" className="forget-password">
-          Забыли пароль?
+        <Link
+          href="/auth/forget_password"
+          className="forget-password"
+          replace={true}
+        >
+          {t("auth_forget_password_title")}
         </Link>
       </div>
       <MainButton
@@ -125,7 +150,7 @@ const SignIn = () => {
           type: "fill",
           width: "100%",
         }}
-        title="Войти"
+        title={t("come_in")}
       />
       <div className="registration-text">
         <TextProvider
@@ -136,7 +161,7 @@ const SignIn = () => {
             color: "second_text",
           }}
         >
-          Нет аккаунта?
+          {t("auth_without_acc_title")}
         </TextProvider>
         <TextProvider
           options={{
@@ -146,11 +171,13 @@ const SignIn = () => {
             color: "static_primary_solid",
           }}
         >
-          <Link href="/auth/registration">Зарегистрируйтесь</Link>
+          <Link href="/auth/registration" replace={true}>
+            {t("auth_registration_title")}
+          </Link>
         </TextProvider>
       </div>
     </Container>
   );
 };
 
-export default SignIn;
+export default WelcomeAuth;

@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 const Container = styled.div`
+  height: calc(100vh - 48px);
   display: grid;
+  grid-template-rows: auto auto 1fr;
   gap: 24px;
 
   .tabbar-wrap {
@@ -14,7 +16,9 @@ const Container = styled.div`
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 1fr auto;
+    align-content: flex-start;
     gap: 24px;
+    overflow: scroll;
 
     .content-personal-info {
       display: grid;

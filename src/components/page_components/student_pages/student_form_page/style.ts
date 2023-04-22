@@ -4,12 +4,14 @@ const Container = styled.form`
   display: grid;
   height: calc(100vh - 48px);
   grid-template-rows: auto 1fr;
-  overflow-y: scroll;
+
   gap: 24px;
 
   .content-wrap {
     display: grid;
     grid-auto-flow: column;
+    grid-template-columns: 1fr auto;
+    overflow-y: scroll;
     gap: 24px;
 
     .personal-info-wrap {

@@ -1,31 +1,46 @@
 import * as yup from "yup";
-import { SCHEMA_INPUT_NUMBER, SCHEMA_INPUT_TEXT } from "@/src/resources/yup";
+import { SCHEMA_INPUT_TEXT } from "@/src/resources/yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import MainButton from "../buttons/main_button";
 import Container from "./style";
-import TextProvider from "../providers/text_provider";
 import { useRouter } from "next/router";
-import MainInput from "../main_input";
+import MainInput from "../../../../global/main_input";
 import { authAPI } from "@/src/redux/services/auth_service";
-import { getToken, saveToken } from "@/src/utils/tokenFunctions";
-import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { saveToken } from "@/src/utils/tokenFunctions";
+import dynamic from "next/dynamic";
+
+const MainButton = dynamic(
+  () => import("../../../../global/buttons/main_button"),
+  {
+    ssr: false,
+  }
+);
+const TextProvider = dynamic(
+  () => import("../../../../global/providers/text_provider"),
+  {
+    ssr: false,
+  }
+);
 
 const yupValidation = yup.object({
   phoneNumber: SCHEMA_INPUT_TEXT,
   pinfl: SCHEMA_INPUT_TEXT,
-  smsCode: SCHEMA_INPUT_NUMBER,
-  createPassword: SCHEMA_INPUT_NUMBER,
-  repeatPassword: SCHEMA_INPUT_NUMBER.oneOf(
-    [yup.ref("createPassword")],
+  smsCode: SCHEMA_INPUT_TEXT.min(8, "Min 8 characters"),
+  password: SCHEMA_INPUT_TEXT,
+  repeatPassword: SCHEMA_INPUT_TEXT.oneOf(
+    [yup.ref("password")],
     "Password does not match"
   ),
 });
 
 type YupValidationType = yup.InferType<typeof yupValidation>;
 
-const RegistrationAuth = () => {
-  const [signup, { data, error }] = authAPI.useSignupMutation();
+const AuthRegistrationPage = () => {
+  const { t } = useTranslation();
+  const [signup] = authAPI.useSignupMutation();
+  const [signin] = authAPI.useSigninMutation();
+  const [changePass] = authAPI.useChangePasswordMutation();
 
   const router = useRouter();
 
@@ -55,7 +70,7 @@ const RegistrationAuth = () => {
     )
       return;
     console.log("PN:", phoneNumber, "PNFL:", pinfl);
-    signup({ mobile: phoneNumber, pinfl, school_id: 0 })
+    signup({ mobile: phoneNumber, pinfl })
       .unwrap()
       .then((res) => {
         console.log(res);
@@ -64,24 +79,33 @@ const RegistrationAuth = () => {
   };
 
   const onSubmit = (data: YupValidationType) => {
-    const { phoneNumber, pinfl, smsCode, createPassword, repeatPassword } =
-      data;
+    const { phoneNumber, pinfl, smsCode, password, repeatPassword } = data;
     console.log(data);
-    // signup({
-    //   mobile: phoneNumber,
-    //   pinfl,
-    //   school_id: 0,
-    // })
-    //   .unwrap()
-    //   .then((res) => {
-    //     console.log(res);
-    //     // const a = saveToken(res);
-    //   })
-    //   .catch((error) => console.warn(error));
+    signin({
+      username: phoneNumber,
+      password: smsCode,
+      login_as: "ENROLLEE",
+    })
+      .unwrap()
+      .then((res) => {
+        const token = res.access;
+        saveToken(res);
+        const body = {
+          old_password: smsCode,
+          password: password,
+          confirmed_password: repeatPassword,
+        };
+        changePass({ token, body })
+          .unwrap()
+          .then((ok) => {
+            if (ok.status !== "ok") return;
+            router.replace("/student");
+          });
+      });
   };
 
   return (
-    <Container onSubmit={(e) => e.preventDefault()}>
+    <Container onSubmit={handleSubmit(onSubmit)}>
       <div className="titler">
         <TextProvider
           options={{
@@ -90,7 +114,7 @@ const RegistrationAuth = () => {
             },
           }}
         >
-          Зарегистрироваться
+          {t("auth_registration_title")}
         </TextProvider>
       </div>
       <div className="input-wrap">
@@ -100,7 +124,7 @@ const RegistrationAuth = () => {
           register={register("phoneNumber")}
           error={
             errors?.phoneNumber?.message &&
-            (errors.phoneNumber.message as string)
+            t(errors.phoneNumber.message as string)
           }
           options={{
             disabled: false,
@@ -111,7 +135,7 @@ const RegistrationAuth = () => {
           placeholder="ПНФЛ"
           name="pinfl"
           register={register("pinfl")}
-          error={errors?.pinfl?.message && (errors.pinfl.message as string)}
+          error={errors?.pinfl?.message && t(errors.pinfl.message as string)}
           options={{
             disabled: false,
             setFocus: () => setFocus("pinfl"),
@@ -123,7 +147,7 @@ const RegistrationAuth = () => {
             name="smsCode"
             register={register("smsCode")}
             error={
-              errors?.smsCode?.message && (errors.smsCode.message as string)
+              errors?.smsCode?.message && t(errors.smsCode.message as string)
             }
             options={{
               disabled: false,
@@ -132,7 +156,8 @@ const RegistrationAuth = () => {
           />
           <MainButton
             onClick={onSendClick}
-            title="Отправить код"
+            title={t("button_send")}
+            type="button"
             options={{
               type: "outline",
             }}
@@ -141,14 +166,14 @@ const RegistrationAuth = () => {
         <MainInput
           placeholder="Созадайте пароль"
           name="createPassword"
-          register={register("createPassword")}
+          register={register("password")}
           error={
-            errors?.createPassword?.message &&
-            (errors.createPassword.message as string)
+            errors?.password?.message && t(errors.password.message as string)
           }
           options={{
+            type: "password",
             disabled: false,
-            setFocus: () => setFocus("createPassword"),
+            setFocus: () => setFocus("password"),
           }}
         />
         <MainInput
@@ -157,9 +182,10 @@ const RegistrationAuth = () => {
           register={register("repeatPassword")}
           error={
             errors?.repeatPassword?.message &&
-            (errors.repeatPassword.message as string)
+            t(errors.repeatPassword.message as string)
           }
           options={{
+            type: "password",
             disabled: false,
             setFocus: () => setFocus("repeatPassword"),
           }}
@@ -167,26 +193,26 @@ const RegistrationAuth = () => {
       </div>
       <div className="button-wrap">
         <MainButton
-          onClick={() => router.push("/auth")}
-          type="submit"
+          onClick={() => router.replace("/auth")}
+          type="button"
           options={{
             type: "outline",
             width: "100%",
           }}
-          title="Назад"
+          title={t("button_back")}
         />
         <MainButton
-          onClick={handleSubmit(onSubmit)}
+          onClick={() => console.log("first")}
           type="submit"
           options={{
             type: "fill",
             width: "100%",
           }}
-          title="Cохранить"
+          title={t("button_save")}
         />
       </div>
     </Container>
   );
 };
 
-export default RegistrationAuth;
+export default AuthRegistrationPage;

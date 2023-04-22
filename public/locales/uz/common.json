@@ -1,17 +1,52 @@
 {
   "home": "Assosy",
-  "orders": "Buyurtmalar",
-  "branches": "Filiallar",
-  "no_options": "Variantlar yo'q",
-  "time": "Vaqt",
   "required_field": "Maydon talab qilinadi",
 
-  "money_online": "Onlayn",
-  "money_offline": "Naqd",
-  "money_returned": "Qaytish",
+  "empty_student_appointment_title": "Siz hali ariza bermadingiz",
+  "empty_student_appointment_description": "Qabul komissiyasidan javob olish va shartnoma bo'yicha harakat qilish uchun ariza topshirishingiz kerak",
 
-  "branch_orders": "Buyurtmalar",
-  "branch_products": "Mahsulotlar",
-  "branch_stock": "Aksiya",
-  "branch_staff": "Xodimlar"
+  "empty_addmission_appointment_title": "Tizimda hali hech qanday dastur mavjud emas",
+  "empty_addmission_appointment_description": "Qabul qilish uchun abituriyentlardan ariza olguncha kutishingiz kerak",
+
+  "empty_addmission_exam_title": "Tizimda hali imtihonlar mavjud emas",
+  "empty_addmission_exam_description": "Talabalar bilimini tekshirish jarayonini malakali tashkil etish uchun yuqori sifatli imtihon tuzish va uni o'tkazish sanasini hisoblash kerak. Shundan keyingina talabalarni taslim bo'lish haqida oldindan xabardor qilish va ularga taklif qilish mumkin bo'ladi.",
+
+  "empty_addmission_faculty_title": "Tizim hali fakultet va yo'nalishlarni qo'shmagan",
+  "empty_addmission_faculty_description": "Bu yerda imtihon uchun tasdiqlangan barcha kvotalar va abituriyentlar ko'rsatiladi",
+
+  "empty_accounting_title": "Hozircha tizimda imtihondan o‘tgan abituriyent yo‘q",
+  "empty_accounting_description": "Barcha fanlardan oʻtish ballarini toʻplay olgan barcha abituriyentlar shu yerda koʻrsatiladi",
+
+  "empty_administration_title": "Tizim hali fakultet va yo'nalishlarni qo'shmagan",
+  "empty_administration_description": "Bu yerda imtihon uchun tasdiqlangan barcha kvotalar va abituriyentlar ko'rsatiladi",
+
+  "faculty_add_title": "Tizim hali fakultet va yo'nalishlarni qo'shmagan",
+  "faculty_add_description": "Bu yerda imtihon uchun tasdiqlangan barcha kvotalar va abituriyentlar ko‘rsatiladi",
+
+  "enter_number": "Raqamni kiriting",
+  "enter_password": "Parolni kiriting",
+  "come_in": "Kirish",
+
+  "auth_welcome_title": "Xush kelibsiz!",
+  "auth_welcome_description": "Kirish ma'lumotlarini so'ralganidek kiriting",
+  "auth_forget_password_title": "Parolni unutdingizmi?",
+  "auth_without_acc_title": "Profilingiz yo'qmi?",
+  "student_role": "Student",
+  "control_role": "Boshqaruv",
+
+  "auth_registration_title": "Roʻyxatdan oʻtish",
+
+  "auth_forget_password": "Parolni tiklash",
+
+  "button_back": "Orqaga",
+  "button_save": "Saqlash",
+  "button_send": "Kodni yuboring",
+  "button_faculty_add": "Fakultetni qo'shing",
+
+  "passport_info": "Pasport ma'lumotlari",
+  "address": "Manzil ma'lumotlari",
+  "contact": "Aloqa ma'lumotlarini",
+  "education": "Ta'lim",
+  "appointment": "Bayonot",
+  "upload_file": "Fayllarni yuklab oling"
 }

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.form`
-  max-width: 350px;
+  width: 350px;
   display: grid;
   gap: 24px;
 

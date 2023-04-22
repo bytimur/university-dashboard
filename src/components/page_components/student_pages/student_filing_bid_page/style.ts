@@ -4,7 +4,6 @@ const Container = styled.div`
   display: grid;
   height: calc(100vh - 48px);
   grid-template-rows: auto 1fr;
-  overflow-y: scroll;
   gap: 24px;
 
   .content-wrap {
@@ -12,8 +11,10 @@ const Container = styled.div`
     gap: 24px;
     grid-auto-flow: column;
     grid-template-columns: 1fr auto;
+    overflow-y: scroll;
 
     .bid-info-card-wrap {
+      height: fit-content;
       display: grid;
       gap: 24px;
     }

@@ -13,6 +13,8 @@ const Container = styled.div`
   }
 
   .table-wrap {
+    height: calc(100vh - 190px);
+    overflow: scroll;
     display: grid;
     grid-template-rows: max-content;
   }

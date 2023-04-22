@@ -15,6 +15,12 @@ const Container = styled.div`
   .table-wrap {
     height: calc(100vh - 190px);
   }
+
+  .illustration-car-wrap {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+  }
 `;
 
 export default Container;

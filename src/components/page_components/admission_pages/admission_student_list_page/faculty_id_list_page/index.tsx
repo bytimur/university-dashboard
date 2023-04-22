@@ -688,7 +688,6 @@ const FacultyIdListPage = () => {
       </div>
       <div className="table-wrap">
         <Table headings={headings} row={row} data={demoData} />
-        <div />
       </div>
     </Container>
   );

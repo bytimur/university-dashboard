@@ -11,7 +11,6 @@ import {
   SCHEMA_INPUT_TEXT,
   SELECT_SCHEMA,
 } from "@/src/resources/yup";
-import DatePicker from "../../datepicker";
 import TestInput from "../../../../../input";
 import MainButton from "../../buttons/main_button";
 import Input from "../../../../../input";
@@ -43,11 +42,6 @@ const ExamModal = NiceModal.create(() => {
     <Modal isModal={modal.visible}>
       <GlobalModal title="Добавить экзамен" onCloseClick={onCloseClick}>
         <Container onSubmit={(e) => e.preventDefault()}>
-          <DatePicker
-            name="Datepicker"
-            control={control}
-            placeholder="Дата платежа"
-          />
           <div className="check-wrap">
             <Input
               name="amountPayable"

@@ -1,17 +1,52 @@
 {
   "home": "Главная",
-  "orders": "Заказы",
-  "branches": "Филиалы",
-  "no_options": "Нет опицй",
-  "time": "Время",
   "required_field": "Поле обязательное",
 
-  "money_online": "Онлайн",
-  "money_offline": "Наличка",
-  "money_returned": "Возврат",
+  "empty_student_appointment_title": "Вы еще не подали заявку",
+  "empty_student_appointment_description": "Вам необходимо подать заявку для получения ответа приемной комисси и действия по договору",
 
-  "branch_orders": "Заказы",
-  "branch_products": "Продукты",
-  "branch_stock": "Склад",
-  "branch_staff": "Сотрудники"
+  "empty_addmission_appointment_title": "В системе еще нет заявок",
+  "empty_addmission_appointment_description": "Вам необходимо подождать пока не поступит заявка от абитуриентов для  поступления",
+
+  "empty_addmission_exam_title": "В системе еще нет экзаменов",
+  "empty_addmission_exam_description": "Чтобы грамотно организовать процесс проверки знаний студентов, необходимо составить качественный экзамен и рассчитать дату его проведения. Только после этого можно будет заблаговременно оповестить студентов о сдаче и пригласить их на него.",
+
+  "empty_addmission_faculty_title": "В системе еще не добавлены факультеты и направления",
+  "empty_addmission_faculty_description": "Тут будут отображаться все квоты и абитуриенты которые были одобрены на сдачу экзамена",
+
+  "empty_accounting_title": "В системе еще нет абитуриентов прошедшие экзамен ",
+  "empty_accounting_description": "Тут будут отображаться все абитуриенты которы смогли собрать проходные баллы по всем предметам",
+
+  "empty_administration_title": "В системе еще не добавлены факультеты и направления",
+  "empty_administration_description": "Тут будут отображаться все квоты и абитуриенты которые были одобрены на сдачу экзамена",
+
+  "faculty_add_title": "В системе еще не добавлены факультеты и направления",
+  "faculty_add_description": "Тут будут отображаться все квоты и абитуриенты которые были одобрены на сдачу экзамена",
+
+  "enter_number": "Введите номер",
+  "enter_password": "Введите пароль",
+  "come_in": "Войти",
+
+  "auth_welcome_title": "Добро пожаловать!",
+  "auth_welcome_description": "Предоставьте свои данные для входа в соответствии с запросом",
+  "auth_forget_password_title": "Забыли пароль?",
+  "auth_without_acc_title": "Нет аккаунта?",
+  "student_role": "Студент",
+  "control_role": "Управление",
+
+  "auth_registration_title": "Зарегистрироваться",
+
+  "auth_forget_password": "Восстановление пароля",
+
+  "button_back": "Назад",
+  "button_save": "Сохранить",
+  "button_send": "Отправить код",
+  "button_faculty_add": "Добавить факультет",
+
+  "passport_info": "Паспортные данные",
+  "address": "Данные адреса",
+  "contact": "Контактные данные",
+  "education": "Образование",
+  "appointment": "Заявление",
+  "upload_file": "Загрузить файлы"
 }

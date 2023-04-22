@@ -1,15 +1,15 @@
 import IconProvider from "@/src/components/global/providers/icon_provider";
-import SignIn from "@/src/components/global/sign_in_auth";
+import WelcomeAuth from "@/src/components/page_components/auth_pages/auth_cards/welcome_auth";
 import Container from "../style";
 
 const AuthWelcomePage = () => {
   return (
     <Container>
       <div className="illustration-wrap">
-        <IconProvider icon="HighSchoolIcon" />
+        <IconProvider icon="AuthIllustrationIcon" />
       </div>
       <div className="auth-wrap">
-        <SignIn />
+        <WelcomeAuth />
       </div>
     </Container>
   );

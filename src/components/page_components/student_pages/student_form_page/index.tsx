@@ -10,51 +10,72 @@ import {
   SCHEMA_INPUT_TEXT,
   SELECT_SCHEMA,
 } from "@/src/resources/yup";
-import TextProvider from "@/src/components/global/providers/text_provider";
+
 import Header from "@/src/components/global/header";
-import LittleImageCard from "@/src/components/global/image_cards/little_image_card";
 import MainInput from "@/src/components/global/main_input";
-import SelectCopy from "@/src/components/global/select";
-import { useState } from "react";
+import Select from "@/src/components/global/select";
+
 import InputDate from "@/src/components/global/input_date";
+import { useTranslation } from "react-i18next";
+import ImageUpload from "@/src/components/global/image_cards/image_upload";
+import dynamic from "next/dynamic";
+const TextProvider = dynamic(
+  () => import("../../../global/providers/text_provider"),
+  {
+    ssr: false,
+  }
+);
+
+const yupValidation = yup.object({
+  first_name: SCHEMA_INPUT_TEXT,
+  midle_name: SCHEMA_INPUT_TEXT,
+  last_name: SCHEMA_INPUT_TEXT,
+  gender: SELECT_SCHEMA,
+  birhtday: DATEPICKER_SCHEMA,
+  passport_number: SCHEMA_INPUT_NUMBER,
+  pinfl: SCHEMA_INPUT_TEXT,
+  nationality: SELECT_SCHEMA,
+  governorate: SELECT_SCHEMA,
+  area: SELECT_SCHEMA,
+  street1: SCHEMA_INPUT_TEXT,
+  street2: SCHEMA_INPUT_TEXT,
+  mobile: SCHEMA_INPUT_TEXT,
+  email: SCHEMA_INPUT_EMAIL,
+  school_type: SELECT_SCHEMA,
+  school_document_number: SCHEMA_INPUT_TEXT,
+  photo_3_4: SCHEMA_INPUT_NUMBER,
+  diploma: SCHEMA_INPUT_NUMBER,
+  identity_1: SCHEMA_INPUT_NUMBER,
+  identity_2: SCHEMA_INPUT_NUMBER,
+});
+
+type YupValidationType = yup.InferType<typeof yupValidation>;
 
 const StudentFormPage = () => {
-  const [date, setDate] = useState("");
-  const handleChange = (date: string | null) => {
-    if (date) setDate(date);
+  const { t } = useTranslation();
+
+  const handleImageUpload = (id: number, name: string) => {
+    console.log("IMAGE_ID:", id, name);
+    setValue(name as "diploma", id, {
+      shouldTouch: true,
+      shouldValidate: true,
+    });
   };
 
-  const yupValidation = yup.object({
-    name: SCHEMA_INPUT_TEXT,
-    secondName: SCHEMA_INPUT_TEXT,
-    lastName: SCHEMA_INPUT_TEXT,
-    sex: SELECT_SCHEMA,
-    citizenship: SELECT_SCHEMA,
-    passportSeries: SCHEMA_INPUT_TEXT,
-    passportNumber: SCHEMA_INPUT_NUMBER,
-    region: SELECT_SCHEMA,
-    city: SELECT_SCHEMA,
-    street: SCHEMA_INPUT_TEXT,
-    phoneNumber: SCHEMA_INPUT_TEXT,
-    email: SCHEMA_INPUT_EMAIL,
-    purposeBid: SELECT_SCHEMA,
-    completedEducational: SELECT_SCHEMA,
-    diplomNumber: SCHEMA_INPUT_TEXT,
-    datePicker: DATEPICKER_SCHEMA,
-  });
   const {
     register,
     control,
     handleSubmit,
-    watch,
     setFocus,
+    setValue,
     formState: { isValid, errors },
-  } = useForm({
+  } = useForm<YupValidationType>({
     mode: "onBlur",
     shouldFocusError: false,
     resolver: yupResolver(yupValidation),
   });
   console.log(isValid);
+
   const onSubmit = (data: any) => console.log(data);
 
   const data = [
@@ -64,14 +85,14 @@ const StudentFormPage = () => {
   const citizenshipData = [
     { id: 0, value: 1, label: "Узбекистан" },
     { id: 1, value: 2, label: "Казахстан" },
-    { id: 1, value: 2, label: "Таджикистан" },
-    { id: 1, value: 2, label: "Кыргызстан" },
+    { id: 2, value: 3, label: "Таджикистан" },
+    { id: 3, value: 4, label: "Кыргызстан" },
   ];
   const region = [
-    { value: 1, label: "Ташкентская область" },
-    { value: 2, label: "Кашкадарьинская область" },
-    { value: 3, label: "Сурхандарьинская область" },
-    { value: 4, label: "Джизакская область" },
+    { id: 0, value: 1, label: "Ташкентская область" },
+    { id: 1, value: 2, label: "Кашкадарьинская область" },
+    { id: 2, value: 3, label: "Сурхандарьинская область" },
+    { id: 3, value: 4, label: "Джизакская область" },
   ];
   const city = [
     { id: 0, value: 1, label: "Ташкент" },
@@ -114,109 +135,103 @@ const StudentFormPage = () => {
                 },
               }}
             >
-              Паспортные данные
+              {t("passport_info")}
             </TextProvider>
             <div className="input-wrapper">
               <MainInput
                 placeholder="Имя"
                 name="phoneNumber"
-                register={register("name")}
-                error={errors?.name?.message && (errors.name.message as string)}
+                register={register("first_name")}
+                error={
+                  errors?.first_name?.message &&
+                  t(errors.first_name.message as string)
+                }
                 options={{
                   disabled: false,
-                  setFocus: () => setFocus("phoneNumber"),
+                  setFocus: () => setFocus("first_name"),
                 }}
               />
               <MainInput
                 placeholder="Фамилия"
                 name="secondName"
-                register={register("secondName")}
+                register={register("midle_name")}
                 error={
-                  errors?.secondName?.message &&
-                  (errors.secondName.message as string)
+                  errors?.midle_name?.message &&
+                  t(errors.midle_name.message as string)
                 }
                 options={{
                   disabled: false,
-                  setFocus: () => setFocus("secondName"),
+                  setFocus: () => setFocus("midle_name"),
                 }}
               />
               <MainInput
                 placeholder="Отчество"
                 name="lastName"
-                register={register("lastName")}
+                register={register("last_name")}
                 error={
-                  errors?.lastName?.message &&
-                  (errors.lastName.message as string)
+                  errors?.last_name?.message &&
+                  t(errors.last_name.message as string)
                 }
                 options={{
                   disabled: false,
-                  setFocus: () => setFocus("lastName"),
+                  setFocus: () => setFocus("last_name"),
                 }}
               />
               <InputDate
                 placeholder="Дата рождения"
-                name="date"
-                register={register("datePicker")}
+                name="birhtday"
+                register={register("birhtday")}
                 error={
-                  errors?.datePicker?.message &&
-                  (errors.datePicker.message as string)
+                  errors?.birhtday?.message &&
+                  t(errors.birhtday.message as string)
                 }
               />
-              {/* <MainInput
-                placeholder="Дата рождения"
-                name="date"
-                register={register("datePicker")}
-                error={
-                  errors?.datePicker?.message &&
-                  (errors.datePicker.message as string)
-                }
-                options={{
-                  disabled: false,
-                  setFocus: () => setFocus("datePicker"),
-                  type: "date",
-                }}
-              /> */}
-              <SelectCopy
+              <Select
                 placeholder="Пол"
                 data={data}
-                name="sex"
-                control={control}
-                error={errors?.sex?.message && (errors?.sex?.message as string)}
-              />
-              <SelectCopy
-                placeholder="Гражданство"
-                data={citizenshipData}
-                name="citizenship"
+                name="gender"
                 control={control}
                 error={
-                  errors?.citizenship?.message &&
-                  (errors?.citizenship?.message as string)
+                  errors?.gender?.message &&
+                  t(errors?.gender?.message as string)
+                }
+                options={{
+                  hideSelectedOptions: false,
+                }}
+              />
+              <Select
+                placeholder="Национальность"
+                data={citizenshipData}
+                name="nationality"
+                control={control}
+                error={
+                  errors?.nationality?.message &&
+                  t(errors?.nationality?.message as string)
                 }
               />
               <MainInput
                 placeholder="Паспорт/ID карта"
                 name="passportSeries"
-                register={register("passportSeries")}
+                register={register("passport_number")}
                 error={
-                  errors?.passportSeries?.message &&
-                  (errors.passportSeries.message as string)
+                  errors?.passport_number?.message &&
+                  t(errors.passport_number.message as string)
                 }
                 options={{
                   disabled: false,
-                  setFocus: () => setFocus("passportSeries"),
+                  setFocus: () => setFocus("passport_number"),
                 }}
               />
               <MainInput
                 placeholder="ПНФЛ"
                 name="passportNumber"
-                register={register("passportNumber")}
+                register={register("pinfl")}
                 error={
-                  errors?.passportNumber?.message &&
-                  (errors.passportNumber.message as string)
+                  errors?.pinfl?.message && t(errors.pinfl.message as string)
                 }
                 options={{
                   disabled: false,
-                  setFocus: () => setFocus("passportSeries"),
+                  setFocus: () => setFocus("pinfl"),
                 }}
               />
             </div>
@@ -229,37 +244,52 @@ const StudentFormPage = () => {
                 },
               }}
             >
-              Данные адреса
+              {t("address")}
             </TextProvider>
             <div className="input-wrapper">
-              <SelectCopy
+              <Select
                 placeholder="Область"
                 data={region}
-                name="region"
+                name="governorate"
                 control={control}
                 error={
-                  errors?.region?.message && (errors?.region?.message as string)
+                  errors?.governorate?.message &&
+                  t(errors?.governorate?.message as string)
                 }
               />
-              <SelectCopy
+              <Select
                 placeholder="Город/Район"
                 data={city}
-                name="city"
+                name="area"
                 control={control}
                 error={
-                  errors?.city?.message && (errors?.city?.message as string)
+                  errors?.area?.message && t(errors?.area?.message as string)
                 }
               />
               <MainInput
                 placeholder="Махалля, Улица, Дом"
-                name="street"
-                register={register("street")}
+                name="street1"
+                register={register("street1")}
                 error={
-                  errors?.street?.message && (errors.street.message as string)
+                  errors?.street1?.message &&
+                  t(errors.street1.message as string)
                 }
                 options={{
                   disabled: false,
-                  setFocus: () => setFocus("street"),
+                  setFocus: () => setFocus("street1"),
+                }}
+              />
+              <MainInput
+                placeholder="Махалля, Улица, Дом"
+                name="street2"
+                register={register("street2")}
+                error={
+                  errors?.street2?.message &&
+                  t(errors.street2.message as string)
+                }
+                options={{
+                  disabled: false,
+                  setFocus: () => setFocus("street2"),
                 }}
               />
             </div>
@@ -272,7 +302,7 @@ const StudentFormPage = () => {
                 },
               }}
             >
-              Контактные данные
+              {t("contact")}
             </TextProvider>
             <div className="input-wrapper">
               <MainInput
@@ -280,7 +310,7 @@ const StudentFormPage = () => {
                 name="email"
                 register={register("email")}
                 error={
-                  errors?.email?.message && (errors.email.message as string)
+                  errors?.email?.message && t(errors.email.message as string)
                 }
                 options={{
                   disabled: false,
@@ -290,14 +320,13 @@ const StudentFormPage = () => {
               <MainInput
                 placeholder="Номер телефона"
                 name="phoneNumber"
-                register={register("phoneNumber")}
+                register={register("mobile")}
                 error={
-                  errors?.phoneNumber?.message &&
-                  (errors.phoneNumber.message as string)
+                  errors?.mobile?.message && t(errors.mobile.message as string)
                 }
                 options={{
                   disabled: false,
-                  setFocus: () => setFocus("phoneNumber"),
+                  setFocus: () => setFocus("mobile"),
                 }}
               />
             </div>
@@ -310,45 +339,35 @@ const StudentFormPage = () => {
                 },
               }}
             >
-              Образование
+              {t("education")}
             </TextProvider>
             <div className="input-wrapper">
-              <SelectCopy
-                placeholder="Цель заявки"
-                data={purposeBid}
-                name="purposeBid"
-                control={control}
-                error={
-                  errors?.purposeBid?.message &&
-                  (errors?.purposeBid?.message as string)
-                }
-              />
-              <SelectCopy
+              <Select
                 placeholder="Завершенное Учеб. заведение"
                 data={purposeBid}
-                name="completedEducational"
+                name="school_type"
                 control={control}
                 error={
-                  errors?.completedEducational?.message &&
-                  (errors?.completedEducational?.message as string)
+                  errors?.school_type?.message &&
+                  t(errors?.school_type?.message as string)
                 }
               />
               <MainInput
                 placeholder="Номер диплома/аттестата"
                 name="diplomNumber"
-                register={register("diplomNumber")}
+                register={register("school_document_number")}
                 error={
-                  errors?.diplomNumber?.message &&
-                  (errors.diplomNumber.message as string)
+                  errors?.school_document_number?.message &&
+                  t(errors.school_document_number.message as string)
                 }
                 options={{
                   disabled: false,
-                  setFocus: () => setFocus("diplomNumber"),
+                  setFocus: () => setFocus("school_document_number"),
                 }}
               />
             </div>
           </div>
-          <div className="part-wrapper">
+          {/* <div className="part-wrapper">
             <TextProvider
               options={{
                 textType: {
@@ -356,61 +375,61 @@ const StudentFormPage = () => {
                 },
               }}
             >
-              Заявление
+              {t("appointment")}
             </TextProvider>
             <div className="input-wrapper">
-              <SelectCopy
+              <Select
                 placeholder="Цель заявки"
                 data={purposeBid}
                 name="purposeBid"
                 control={control}
                 error={
                   errors?.purposeBid?.message &&
-                  (errors?.purposeBid?.message as string)
+                  t(errors?.purposeBid?.message as string)
                 }
               />
-              <SelectCopy
+              <Select
                 placeholder="Цель заявки"
                 data={purposeBid}
                 name="purposeBid"
                 control={control}
                 error={
                   errors?.purposeBid?.message &&
-                  (errors?.purposeBid?.message as string)
+                  t(errors?.purposeBid?.message as string)
                 }
               />
-              <SelectCopy
+              <Select
                 placeholder="Цель заявки"
                 data={purposeBid}
                 name="purposeBid"
                 control={control}
                 error={
                   errors?.purposeBid?.message &&
-                  (errors?.purposeBid?.message as string)
+                  t(errors?.purposeBid?.message as string)
                 }
               />
-              <SelectCopy
+              <Select
                 placeholder="Цель заявки"
                 data={purposeBid}
                 name="purposeBid"
                 control={control}
                 error={
                   errors?.purposeBid?.message &&
-                  (errors?.purposeBid?.message as string)
+                  t(errors?.purposeBid?.message as string)
                 }
-              />{" "}
-              <SelectCopy
+              />
+              <Select
                 placeholder="Цель заявки"
                 data={purposeBid}
                 name="purposeBid"
                 control={control}
                 error={
                   errors?.purposeBid?.message &&
-                  (errors?.purposeBid?.message as string)
+                  t(errors?.purposeBid?.message as string)
                 }
               />
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="bid-image-card-wrap">
           <TextProvider
@@ -420,52 +439,55 @@ const StudentFormPage = () => {
               },
             }}
           >
-            Загрузить файлы
+            {t("upload_file")}
           </TextProvider>
           <div className="bid-image-card-content">
-            <LittleImageCard
-              photo="/images/avatar.png"
+            <ImageUpload
+              name="photo_3_4"
+              onChange={handleImageUpload}
+              error={
+                errors?.photo_3_4?.message &&
+                (errors?.photo_3_4?.message as string)
+              }
               titler={{
-                title: "Фотография (3х4)",
-                description: "Мой диплом.jpeg",
-              }}
-              button={{
-                title: "Загрузить фото",
-                onClick: () => "click",
+                title: "Title",
+                description: "Description",
               }}
             />
-            <LittleImageCard
-              photo="/images/avatar.png"
+            <ImageUpload
+              name="diploma"
+              onChange={handleImageUpload}
               titler={{
-                title: "Фотография (3х4)",
-                description: "Мой диплом.jpeg",
+                title: "Title",
+                description: "Description",
               }}
-              button={{
-                title: "Загрузить фото",
-                onClick: () => "click",
-              }}
+              error={
+                errors?.diploma?.message && (errors?.diploma?.message as string)
+              }
             />
-            <LittleImageCard
-              photo="/images/avatar.png"
+            <ImageUpload
+              name="identity_1"
+              onChange={handleImageUpload}
               titler={{
-                title: "Фотография (3х4)",
-                description: "Мой диплом.jpeg",
+                title: "Title",
+                description: "Description",
               }}
-              button={{
-                title: "Загрузить фото",
-                onClick: () => "click",
-              }}
+              error={
+                errors?.identity_1?.message &&
+                (errors?.identity_1?.message as string)
+              }
             />
-            <LittleImageCard
-              photo="/images/avatar.png"
+            <ImageUpload
+              name="identity_2"
+              onChange={handleImageUpload}
               titler={{
-                title: "Фотография (3х4)",
-                description: "Мое диплом.jpeg",
+                title: "Title",
+                description: "Description",
               }}
-              button={{
-                title: "Загрузить фото",
-                onClick: () => "click",
-              }}
+              error={
+                errors?.identity_2?.message &&
+                (errors?.identity_2?.message as string)
+              }
             />
           </div>
         </div>

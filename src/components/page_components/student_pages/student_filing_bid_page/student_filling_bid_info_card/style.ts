@@ -16,6 +16,7 @@ const Container = styled.div`
     border: 1px solid var(--stroke);
 
     .info-card-item-wrap {
+      height: fit-content;
       display: grid;
       gap: 2px;
     }

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
+  position: sticky;
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 1fr auto;

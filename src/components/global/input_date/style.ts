@@ -15,6 +15,8 @@ const Container = styled.div`
     border: 1px solid var(--stroke);
 
     input {
+      width: 100%;
+      height: 100%;
       ::placeholder {
         font-size: 14px;
         color: var(--second_text);
@@ -46,7 +48,7 @@ const Container = styled.div`
     .input-icon-wrap {
       position: absolute;
       right: 14px;
-      top: 9px;
+      top: 12px;
     }
   }
 

@@ -1,9 +1,13 @@
-import { SignupRequest } from "./auth-service.d";
+import {
+  ForgetPasswordRequest,
+  ForgetPasswordResponse,
+  SignupRequest,
+} from "./auth-service.d";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { BASE_URL, API_ENDPOINTS } from "../../api_endpoints";
+import { BASE_URL, API_ENDPOINTS, METHOD_TYPE } from "../../api_endpoints";
 import {
   ChangePasswordRequest,
-  ChangePasswordResponses,
+  ChangePasswordResponse,
   RefreshTokenRequest,
   RefreshTokenResponse,
   SigninRequest,
@@ -21,31 +25,44 @@ export const authAPI = createApi({
     signin: build.mutation<SigninResponse, SigninRequest>({
       query: (data) => ({
         url: `${API_ENDPOINTS.SIGN_IN}`,
-        method: "POST",
+        method: METHOD_TYPE.post,
         body: data,
       }),
     }),
     signup: build.mutation<SignupResponse, SignupRequest>({
       query: (data) => ({
         url: `${API_ENDPOINTS.SIGN_UP}`,
-        method: "POST",
+        method: METHOD_TYPE.post,
         body: data,
       }),
     }),
     refreshToken: build.mutation<RefreshTokenResponse, RefreshTokenRequest>({
       query: (data) => ({
         url: `${API_ENDPOINTS.REFRESH_TOKEN}`,
-        method: "POST",
+        method: METHOD_TYPE.post,
         body: data,
       }),
     }),
     changePassword: build.mutation<
-      ChangePasswordRequest,
-      ChangePasswordResponses
+      ChangePasswordResponse,
+      ChangePasswordRequest
+    >({
+      query: ({ token, body }) => ({
+        url: `${API_ENDPOINTS.CHANGE_PASSWORD}`,
+        method: METHOD_TYPE.put,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: body,
+      }),
+    }),
+    forgetPassword: build.mutation<
+      ForgetPasswordResponse,
+      ForgetPasswordRequest
     >({
       query: (data) => ({
-        url: `${API_ENDPOINTS.CHANGE_PASSWORD}/${data.id}/change_password`,
-        method: "PUT",
+        url: `${API_ENDPOINTS.FORGET_PASSWORD}`,
+        method: METHOD_TYPE.post,
         body: data,
       }),
     }),

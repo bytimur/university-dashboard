@@ -3,7 +3,7 @@ import { UseFormRegisterReturn } from "react-hook-form";
 
 export type InputProps = {
   label?: string;
-  placeholder?: string;
+  placeholder?: string | TFuncReturn;
   name: string;
   register: UseFormRegisterReturn<any>;
   error?: string | TFuncReturn;

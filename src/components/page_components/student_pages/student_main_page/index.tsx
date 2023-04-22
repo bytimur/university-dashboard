@@ -1,9 +1,9 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import StudentBidCard from "./student_bid_card";
 import StudentBidInfoCard from "./student_bid_info_card";
 import Container from "./style";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { TableListDescItemProps } from "@/src/components/global/table/table_list_desc_item/table-list-desc-item";
 import { StatusIndicatorProps } from "@/src/components/global/table/status_indicator/status-indicator";
 import { TotalScoreCardProps } from "@/src/components/global/total_score_card/total-score-card";
@@ -13,6 +13,13 @@ import StatusIndicator from "@/src/components/global/table/status_indicator";
 import Header from "@/src/components/global/header";
 import Table from "@/src/components/global/table";
 import TotalScoreCard from "@/src/components/global/total_score_card";
+import { useTranslation } from "react-i18next";
+import dynamic from "next/dynamic";
+
+const IllustrationCard = dynamic(
+  () => import("../../../global/illustrations_card"),
+  { ssr: false }
+);
 
 type DataType = {
   id: number;
@@ -71,102 +78,6 @@ const data: DataType[] = [
       type: "new",
     },
   },
-  // {
-  //   id: 4,
-  //   date: {
-  //     title: "2023/07/29 13:45",
-  //     subTitle: "Приемная комиссия",
-  //   },
-  //   reason: "-",
-  //   status: {
-  //     title: "Новое",
-  //     type: "new",
-  //   },
-  // },
-  // {
-  //   id: 5,
-  //   date: {
-  //     title: "2023/07/29 13:45",
-  //     subTitle: "Приемная комиссия",
-  //   },
-  //   reason: "-",
-  //   status: {
-  //     title: "Новое",
-  //     type: "new",
-  //   },
-  // },
-  // {
-  //   id: 6,
-  //   date: {
-  //     title: "2023/07/29 13:45",
-  //     subTitle: "Приемная комиссия",
-  //   },
-  //   reason: "-",
-  //   status: {
-  //     title: "Новое",
-  //     type: "new",
-  //   },
-  // },
-  // {
-  //   id: 7,
-  //   date: {
-  //     title: "2023/07/29 13:45",
-  //     subTitle: "Приемная комиссия",
-  //   },
-  //   reason: "-",
-  //   status: {
-  //     title: "Новое",
-  //     type: "new",
-  //   },
-  // },
-  // {
-  //   id: 8,
-  //   date: {
-  //     title: "2023/07/29 13:45",
-  //     subTitle: "Приемная комиссия",
-  //   },
-  //   reason: "-",
-  //   status: {
-  //     title: "Новое",
-  //     type: "new",
-  //   },
-  // },
-  // {
-  //   id: 9,
-  //   date: {
-  //     title: "2023/07/29 13:45",
-  //     subTitle: "Приемная комиссия",
-  //   },
-  //   reason: "-",
-  //   status: {
-  //     title: "Новое",
-  //     type: "new",
-  //   },
-  // },
-  // {
-  //   id: 10,
-  //   date: {
-  //     title: "2023/07/29 13:45",
-  //     subTitle: "Приемная комиссия",
-  //   },
-  //   reason: "-",
-  //   status: {
-  //     title: "Новое",
-  //     type: "new",
-  //   },
-  // },
-  // {
-  //   id: 11,
-  //   date: {
-  //     title: "2023/07/29 13:45",
-  //     subTitle: "Приемная комиссия",
-  //   },
-  //   reason: "-",
-  //   status: {
-  //     title: "Новое",
-  //     type: "new",
-  //   },
-  // },
 ];
 
 const totalScoreData: TotalScoreCardProps[] = [
@@ -193,6 +104,10 @@ const totalScoreData: TotalScoreCardProps[] = [
 ];
 
 const StudentMainPage = () => {
+  const { t } = useTranslation();
+  const router = useRouter();
+  const [appointment, setAppointment] = useState(false);
+
   const headings: TableHeadingType[] = [
     { text: "Дата" },
     { text: "Причина", width: 500 },
@@ -232,67 +147,84 @@ const StudentMainPage = () => {
           description: "Прием за 2022-2023",
         }}
       />
-      <div className="bid-wrap">
-        <StudentBidCard
-          bidNumber="№20230712211"
-          bidDate="2022-04-31"
-          status={{
-            title: "Одобрено",
-            type: "approved",
-          }}
-          button={{
-            title: "Посмотреть заявку",
-            onClick: () => Router.push("/student/application/create"),
-          }}
-          bidInfo={[
-            {
-              id: 0,
-              title: "Цель заявки",
-              description: "Прием на учебу",
-            },
-            {
-              id: 1,
-              title: "Этап",
-              description: "Бакалавриат",
-            },
-            {
-              id: 2,
-              title: "Форма",
-              description: "Очное",
-            },
-            {
-              id: 3,
-              title: "Язык",
-              description: "Русский",
-            },
-            {
-              id: 4,
-              title: "Факультет",
-              description: "Компьютерная инженерия",
-            },
-            {
-              id: 5,
-              title: "Направление",
-              description: "Мультимедийные технологии",
-            },
-          ]}
-        />
-        <div className="score-and-notification-wrap">
-          <div className="total-score-wrap">
-            {totalScoreData.map((item) => (
-              <TotalScoreCard
-                key={item.id}
-                title={item.title}
-                score={item.score}
-              />
-            ))}
+      {appointment ? (
+        <div className="student-main-page-content-wrap">
+          <div className="bid-wrap">
+            <StudentBidCard
+              bidNumber="№20230712211"
+              bidDate="2022-04-31"
+              status={{
+                title: "Одобрено",
+                type: "approved",
+              }}
+              button={{
+                title: "Посмотреть заявку",
+                onClick: () => Router.push("/student/application/create"),
+              }}
+              bidInfo={[
+                {
+                  id: 0,
+                  title: "Цель заявки",
+                  description: "Прием на учебу",
+                },
+                {
+                  id: 1,
+                  title: "Этап",
+                  description: "Бакалавриат",
+                },
+                {
+                  id: 2,
+                  title: "Форма",
+                  description: "Очное",
+                },
+                {
+                  id: 3,
+                  title: "Язык",
+                  description: "Русский",
+                },
+                {
+                  id: 4,
+                  title: "Факультет",
+                  description: "Компьютерная инженерия",
+                },
+                {
+                  id: 5,
+                  title: "Направление",
+                  description: "Мультимедийные технологии",
+                },
+              ]}
+            />
+            <div className="score-and-notification-wrap">
+              <div className="total-score-wrap">
+                {totalScoreData.map((item) => (
+                  <TotalScoreCard
+                    key={item.id}
+                    title={item.title}
+                    score={item.score}
+                  />
+                ))}
+              </div>
+              <StudentBidInfoCard />
+            </div>
           </div>
-          <StudentBidInfoCard />
+          <div className="table-wrap">
+            <Table headings={headings} row={row} data={data} />
+          </div>
         </div>
-      </div>
-      <div className="table-wrap">
-        <Table headings={headings} row={row} data={data} />
-      </div>
+      ) : (
+        <div className="illustration-car-wrap">
+          <IllustrationCard
+            icon="StudentIllustrationIcon"
+            title={t("empty_student_appointment_title")}
+            description={t("empty_student_appointment_description")}
+            button={{
+              title: "Подать заявку",
+              icon: "DocumentUploadLinerIcon",
+              onClick: () => router.push("/student/application/edit"),
+            }}
+          />
+        </div>
+      )}
     </Container>
   );
 };

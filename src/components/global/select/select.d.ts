@@ -12,7 +12,8 @@ export type SelectProps = {
   defaultValue?: SelectData | SelectData[];
   data: SelectData[];
   name: string;
-  control: Control<FieldValues, any>;
+  // control: Control<FieldValues, any>;
+  control: Control<IntrinsicAttributes>;
   error?: string | TFuncReturn;
   options?: SelectOptions;
 };

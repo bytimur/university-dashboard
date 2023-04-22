@@ -42,7 +42,11 @@ const MainInput = (props: InputProps) => {
           disabled={options.disabled}
         />
         {options.type === "password" ? (
-          <button onClick={onPasswordEyeClick} className="password_eye">
+          <button
+            type="button"
+            onClick={onPasswordEyeClick}
+            className="password_eye"
+          >
             <IconProvider
               icon={!isAtive ? "EyeIcon" : "EyeSlashIcon"}
               color="second_text"
